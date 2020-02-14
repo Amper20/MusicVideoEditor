@@ -1,0 +1,6 @@
+caroce cio po ciom despre midi
+ai eventuri (note on, note off, pitch bend and so on)
+eventurile astea au tickuri asociate (un tick e strict integer)
+1 s = x bpm
+1 bpm = y tick
+=> 1s = x*y tick
