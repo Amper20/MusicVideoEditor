@@ -41,7 +41,7 @@ def type2(midifile):
 #
 # player.set_instrument(0)
 
-midifile = MidiFile('sng.mid', clip=True)
+midifile = MidiFile('cioccioc.mid', clip=True)
 playType = {0: type0, 1: type1, 2: type2}
 playType[midifile.type](midifile)
 
