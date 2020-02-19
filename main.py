@@ -1,6 +1,7 @@
 import sys
 import mido
 import time
+import rtmidi
 from mido import MidiFile
 import pygame.midi
 
@@ -20,29 +21,21 @@ def type0(midifile):
 def type1(midifile):
     assert isinstance(midifile, MidiFile)
     set_tempo(midifile)
-    for track in midifile.tracks:
-        print('---------------')
-        print(track)
-        print('---------------')
-        for msg in track:
-            print(msg)
+
+    port = mido.open_output('Microsoft GS Wavetable Synth 0')
+
+    for msg in midifile.play():
+        print(msg)
+        port.send(msg)
 
 
 # type 2 (asynchronous): each track is independent of the others
 def type2(midifile):
     assert isinstance(midifile, MidiFile)
 
-# pygame.midi.init()
-#
-# print(pygame.midi.get_default_output_id())
-# print(pygame.midi.get_device_info(0))
-#
-# player = pygame.midi.Output(0)
-#
-# player.set_instrument(0)
 
-midifile = MidiFile('cioccioc.mid', clip=True)
+midifile = MidiFile('test.mid', clip=True)
+print(mido.get_output_names())
 playType = {0: type0, 1: type1, 2: type2}
 playType[midifile.type](midifile)
 
-# pygame.midi.quit()
