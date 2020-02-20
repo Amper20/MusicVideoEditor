@@ -79,10 +79,10 @@ def type2(midifile):
     assert isinstance(midifile, MidiFile)
 
 
-midifile = MidiFile('test.mid', clip=True)
+midifile = MidiFile('blr.mid', clip=True)
 tempo = get_tempo(midifile)
 
 playType = {0: type0, 1: type1, 2: type2}
-#playType[midifile.type](midifile)
+playType[midifile.type](midifile)
 
-parse_msg(get_timeline(midifile))
+#parse_msg(get_timeline(midifile))
