@@ -20,7 +20,7 @@ def get_timeline(midifile):
 
     for track in midifile.tracks:
         for msg in track:
-            if msg.type is 'note_on' or msg.type is 'note_off':
+            if msg.type == 'note_on' or msg.type == 'note_off':
                 lst = channel.get(msg.channel, [])
                 lst.append((msg, msg.time))
                 channel[msg.channel] = lst
@@ -42,7 +42,6 @@ def get_timeline(midifile):
 
 
 def parse_msg(timeline):
-    timeline.reverse()
     notes = {}  # ch : [(note, start, end, msg)]
     for start in range(0, len(timeline)):
         msg_start = timeline[start][0]
@@ -59,7 +58,7 @@ def parse_msg(timeline):
 
 def load_clip(pitch, instrument):
     if instrument == 'guitar':
-        return VideoFileClip("clips/1.mov")
+        return VideoFileClip("clips/videoplayback.mp4")
 
 # type 0 (single track): all messages are saved in one track
 def type0(midifile):
@@ -86,7 +85,7 @@ def type2(midifile):
 
 
 if __name__ == "__main__":
-    midifile = MidiFile('midi_samples/test.mid', clip=True)
+    midifile = MidiFile('midi_samples/sng.mid', clip=True)
     tempo = get_tempo(midifile)
 
     playType = {0: type0, 1: type1, 2: type2}
@@ -102,6 +101,6 @@ if __name__ == "__main__":
         clips.append(clip)
     final_clip = clips_array([clips[0:5],
                              clips[5:10]])
-    final_clip.subclip(0, final_clip.duration - 0.0001).write_videofile("test1.mov")
+    final_clip.subclip(0, final_clip.duration - 0.0001).write_videofile("test1.mp4")
     time.sleep(10)
     exit()
